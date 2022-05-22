@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./style.css" />
     <title>Document</title>
   </head>
   <body>
@@ -15,7 +15,7 @@
   4. 정답 횟수까지의 입력횟수 카운트
  -->
     <div class="container">
-      <div class="left" style="float: left;">
+      <div class="left" style="float: left">
         <input type="text" id="user_input" />
         <button id="user_btn">검사</button>
 
@@ -26,23 +26,18 @@
         <table>
           <thead>
             <tr>
-              <td>
-                입력값
-              </td>
-              <td>
-                결과
-              </td>
+              <td>입력값</td>
+              <td>결과</td>
             </tr>
           </thead>
-          <tbody id="result-table">
-
-          </tbody>
+          <tbody id="result-table"></tbody>
         </table>
       </div>
     </div>
 
     <script>
-      var result = "1634";
+      var result = getRandomArbitrary(1000,9999);
+      console.log(result);
       var cnt = 0;
       var strike = 0;
       var ball = 0;
@@ -94,8 +89,12 @@
               <td>${strike}S${ball}B</td>
               </tr>
           `;
-          console.log(template);
-          result_table.innerHTML += template;
+        console.log(template);
+        result_table.innerHTML += template;
+      }
+
+      function getRandomArbitrary(min, max) {
+        return String(Math.round(Math.random() * (max - min) + min));
       }
     </script>
   </body>
