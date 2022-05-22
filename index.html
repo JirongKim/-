@@ -1,63 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <!-- 숫자야구게임
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 숫자야구게임
   1. 랜덤숫자 발행
   2. 사용자의 입력을 받음
   3. 그 입력을 토대로 s,ball의 정보를 반환
   4. 정답 횟수까지의 입력횟수 카운트
  -->
- <input type="text" id="user_input">
- <button id="user_btn">검사</button>
+    <div class="container">
+      <div class="left" style="float: left;">
+        <input type="text" id="user_input" />
+        <button id="user_btn">검사</button>
 
- <h3 id="compare"></h3>
- <p id="score"></p>
+        <h3 id="compare"></h3>
+        <p id="score"></p>
+      </div>
+      <div class="right">
+        <table>
+          <thead>
+            <tr>
+              <td>
+                입력값
+              </td>
+              <td>
+                결과
+              </td>
+            </tr>
+          </thead>
+          <tbody id="result-table">
 
- <script>
-   var result = "1634";
-   var cnt = 0;
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-   var evt_user_input = document.querySelector("#user_input");
-   var evt_user_btn = document.querySelector("#user_btn");
-   var compare = document.querySelector("#compare");
-   var score = document.querySelector("#score");
+    <script>
+      var result = "1634";
+      var cnt = 0;
+      var strike = 0;
+      var ball = 0;
+      var user_input = 0;
 
-   evt_user_btn.addEventListener("click", function(){
-     cnt = cnt + 1;
-     var user_input = evt_user_input.value;
-     var strike = 0;
-     var ball = 0;
+      var evt_user_input = document.querySelector("#user_input");
+      var evt_user_btn = document.querySelector("#user_btn");
+      var compare = document.querySelector("#compare");
+      var score = document.querySelector("#score");
+      var result_table = document.querySelector("#result-table");
 
-     if(result === user_input){
-       compare.innerHTML = `성공! 결과는 ${cnt}회!`;
-       score.innerHTML = "";
-       cnt = 0;
-       return;
-     }
+      evt_user_btn.addEventListener("click", function () {
+        strike = 0;
+        ball = 0;
+        user_input = 0;
+        cnt = cnt + 1;
+        user_input = evt_user_input.value;
 
-     for (let i = 0; i < 4; i++) {
-       for (let j = 0; j < 4; j++) {
-         if(result[i] == user_input[j]){
-           if(i == j){
-             strike = strike + 1;
-           }
-           else{
-             ball = ball + 1;
-           }
-           break;
-         }
-       }
-     }
+        if (result === user_input) {
+          compare.innerHTML = `성공! 결과는 ${cnt}회!`;
+          score.innerHTML = "";
+          cnt = 0;
+          log();
+          return;
+        }
 
-     compare.innerHTML = `${strike}Strike, ${ball}Ball`;
-     score.innerHTML = `${cnt}회 도전했음.`;
-   });
- </script>
-</body>
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 4; j++) {
+            if (result[i] == user_input[j]) {
+              if (i == j) {
+                strike = strike + 1;
+              } else {
+                ball = ball + 1;
+              }
+              break;
+            }
+          }
+        }
+
+        compare.innerHTML = `${strike}Strike, ${ball}Ball`;
+        score.innerHTML = `${cnt}회 도전했음.`;
+        log();
+      });
+
+      function log() {
+        var template = `
+            <tr>
+              <td>${user_input}</td>
+              <td>${strike}S${ball}B</td>
+              </tr>
+          `;
+          console.log(template);
+          result_table.innerHTML += template;
+      }
+    </script>
+  </body>
 </html>
